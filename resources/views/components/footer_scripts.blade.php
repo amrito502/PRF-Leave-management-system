@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="{{ asset('assets/js/alpine-collaspe.min.js') }}"></script>
 <script src="{{ asset('assets/js/alpine-persist.min.js') }}"></script>
 <script defer="" src="{{ asset('assets/js/alpine-ui.min.js') }}"></script>
@@ -9,8 +10,20 @@
 <script src="{{ asset('assets/js/simple-datatables.js') }}"></script>
 
 
+@yield('scripts')
 
 
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(e) {
+        // default
+        var els = document.querySelectorAll(".selectize");
+        els.forEach(function(select) {
+            NiceSelect.bind(select);
+        });
+    });
+</script>
 
 
 
@@ -57,7 +70,8 @@
         // sidebar section
         Alpine.data('sidebar', () => ({
             init() {
-                const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
+                const selector = document.querySelector('.sidebar ul a[href="' + window.location
+                    .pathname + '"]');
                 if (selector) {
                     selector.classList.add('active');
                     const ul = selector.closest('ul.sub-menu');
@@ -77,7 +91,8 @@
         // header section
         Alpine.data('header', () => ({
             init() {
-                const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
+                const selector = document.querySelector('ul.horizontal-menu a[href="' + window
+                    .location.pathname + '"]');
                 if (selector) {
                     selector.classList.add('active');
                     const ul = selector.closest('ul.sub-menu');
@@ -93,8 +108,7 @@
                 }
             },
 
-            notifications: [
-                {
+            notifications: [{
                     id: 1,
                     profile: 'user-profile.jpeg',
                     message: '<strong class="text-sm mr-1">StarCode Kh</strong>invite you to <strong>Prototyping</strong>',
@@ -114,8 +128,7 @@
                 },
             ],
 
-            messages: [
-                {
+            messages: [{
                     id: 1,
                     image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
                     title: 'Congratulations!',
@@ -145,8 +158,7 @@
                 },
             ],
 
-            languages: [
-                {
+            languages: [{
                     id: 1,
                     key: 'Khmer',
                     value: 'kh',
@@ -240,7 +252,8 @@
         // content section
         Alpine.data('sales', () => ({
             init() {
-                isDark = this.$store.app.theme === 'dark' || this.$store.app.isDarkMode ? true : false;
+                isDark = this.$store.app.theme === 'dark' || this.$store.app.isDarkMode ? true :
+                    false;
                 isRtl = this.$store.app.rtlClass === 'rtl' ? true : false;
 
                 const revenueChart = null;
@@ -250,28 +263,33 @@
 
                 // revenue
                 setTimeout(() => {
-                    this.revenueChart = new ApexCharts(this.$refs.revenueChart, this.revenueChartOptions);
+                    this.revenueChart = new ApexCharts(this.$refs.revenueChart, this
+                        .revenueChartOptions);
                     this.$refs.revenueChart.innerHTML = '';
                     this.revenueChart.render();
 
                     // sales by category
-                    this.salesByCategory = new ApexCharts(this.$refs.salesByCategory, this.salesByCategoryOptions);
+                    this.salesByCategory = new ApexCharts(this.$refs.salesByCategory, this
+                        .salesByCategoryOptions);
                     this.$refs.salesByCategory.innerHTML = '';
                     this.salesByCategory.render();
 
                     // daily sales
-                    this.dailySales = new ApexCharts(this.$refs.dailySales, this.dailySalesOptions);
+                    this.dailySales = new ApexCharts(this.$refs.dailySales, this
+                        .dailySalesOptions);
                     this.$refs.dailySales.innerHTML = '';
                     this.dailySales.render();
 
                     // total orders
-                    this.totalOrders = new ApexCharts(this.$refs.totalOrders, this.totalOrdersOptions);
+                    this.totalOrders = new ApexCharts(this.$refs.totalOrders, this
+                        .totalOrdersOptions);
                     this.$refs.totalOrders.innerHTML = '';
                     this.totalOrders.render();
                 }, 300);
 
                 this.$watch('$store.app.theme', () => {
-                    isDark = this.$store.app.theme === 'dark' || this.$store.app.isDarkMode ? true : false;
+                    isDark = this.$store.app.theme === 'dark' || this.$store.app
+                        .isDarkMode ? true : false;
 
                     this.revenueChart.updateOptions(this.revenueChartOptions);
                     this.salesByCategory.updateOptions(this.salesByCategoryOptions);
@@ -288,14 +306,17 @@
             // revenue
             get revenueChartOptions() {
                 return {
-                    series: [
-                        {
+                    series: [{
                             name: 'Income',
-                            data: [16800, 16800, 15500, 17800, 15500, 17000, 19000, 16000, 15000, 17000, 14000, 17000],
+                            data: [16800, 16800, 15500, 17800, 15500, 17000, 19000, 16000,
+                                15000, 17000, 14000, 17000
+                            ],
                         },
                         {
                             name: 'Expenses',
-                            data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 17000, 16000, 19000, 18000, 19000],
+                            data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 17000,
+                                16000, 19000, 18000, 19000
+                            ],
                         },
                     ],
                     chart: {
@@ -327,8 +348,7 @@
                     },
                     colors: isDark ? ['#2196f3', '#e7515a'] : ['#1b55e2', '#e7515a'],
                     markers: {
-                        discrete: [
-                            {
+                        discrete: [{
                                 seriesIndex: 0,
                                 dataPointIndex: 6,
                                 fillColor: '#1b55e2',
@@ -344,7 +364,9 @@
                             },
                         ],
                     },
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+                        'Oct', 'Nov', 'Dec'
+                    ],
                     xaxis: {
                         axisBorder: {
                             show: false,
@@ -451,7 +473,9 @@
                         width: 25,
                         colors: isDark ? '#0e1726' : '#fff',
                     },
-                    colors: isDark ? ['#5c1ac3', '#e2a03f', '#e7515a', '#e2a03f'] : ['#e2a03f', '#5c1ac3', '#e7515a'],
+                    colors: isDark ? ['#5c1ac3', '#e2a03f', '#e7515a', '#e2a03f'] : ['#e2a03f',
+                        '#5c1ac3', '#e7515a'
+                    ],
                     legend: {
                         position: 'bottom',
                         horizontalAlign: 'center',
@@ -491,7 +515,8 @@
                                         color: '#888ea8',
                                         fontSize: '29px',
                                         formatter: (w) => {
-                                            return w.globals.seriesTotals.reduce(function (a, b) {
+                                            return w.globals.seriesTotals.reduce(function(a,
+                                                b) {
                                                 return a + b;
                                             }, 0);
                                         },
@@ -521,8 +546,7 @@
             // daily sales
             get dailySalesOptions() {
                 return {
-                    series: [
-                        {
+                    series: [{
                             name: 'Sales',
                             data: [44, 55, 41, 67, 22, 43, 21],
                         },
@@ -549,18 +573,16 @@
                         width: 1,
                     },
                     colors: ['#e2a03f', '#e0e6ed'],
-                    responsive: [
-                        {
-                            breakpoint: 480,
-                            options: {
-                                legend: {
-                                    position: 'bottom',
-                                    offsetX: -10,
-                                    offsetY: 0,
-                                },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            legend: {
+                                position: 'bottom',
+                                offsetX: -10,
+                                offsetY: 0,
                             },
                         },
-                    ],
+                    }, ],
                     xaxis: {
                         labels: {
                             show: false,
@@ -602,12 +624,10 @@
             // total orders
             get totalOrdersOptions() {
                 return {
-                    series: [
-                        {
-                            name: 'Sales',
-                            data: [28, 40, 36, 52, 38, 60, 38, 52, 36, 40],
-                        },
-                    ],
+                    series: [{
+                        name: 'Sales',
+                        data: [28, 40, 36, 52, 38, 60, 38, 52, 36, 40],
+                    }, ],
                     chart: {
                         height: 290,
                         type: 'area',
@@ -657,4 +677,5 @@
     });
 </script>
 </body>
+
 </html>

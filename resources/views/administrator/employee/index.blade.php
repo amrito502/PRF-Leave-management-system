@@ -23,18 +23,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse ($employees as $key=>$employee)
                         <tr>
-                            <td>1</td>
-                            <td style="width: 100px; height:60px; "><img src="{{ asset('assets/images/download.jpg') }}"
+                            <td>{{ $key+1 }}</td>
+                            <td style="width: 100px; height:60px; "><img src="{{ asset('file_uploads/employee/profile/'.$employee->image) }}"
                                     alt="img"></td>
-                            <td>nb09jt</td>
-                            <td>Amrito Bosu</td>
+                            <td>{{ $employee->employee_code }}</td>
+                            <td>{{ $employee->name }}</td>
                             <td>
-                                <p><b>Department</b> : IT Department</p>
-                                <p><b>Designation</b> : Web Developer</p>
-                                <p><b>Role</b> : HR</p>
-                                <p><b>Join</b> : N/A</p>
-                                <p><b>Location</b> : N/A</p>
+                                <p><b>Department</b> : {{ $employee->department['name'] }}</p>
+                                <p><b>Designation</b> : {{ $employee->designation_id }}</p>
+                                <p><b>Role</b> : {{ $employee->employee_code }}</p>
+                                <p><b>Join</b> : {{ $employee->employee_code }}</p>
+                                <p><b>Location</b> : {{ $employee->employee_code }}</p>
                             </td>
                             <td><a href="" class="btn btn-outline-success" style="width: 50%;">Active</a></td>
                             <td class="d-flex">
@@ -98,6 +99,10 @@
 
                             </td>
                         </tr>
+                        @empty
+                            <p class="text-center text-danger">Employee Not Found!</p>
+                        @endforelse
+
                     </tbody>
                 </table>
             </div>
